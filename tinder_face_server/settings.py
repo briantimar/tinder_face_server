@@ -53,6 +53,7 @@ ROOT_URLCONF = 'tinder_face_server.urls'
 
 TEMPLATES = [
     {
+        # uses standard django template syntax
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [],
         'APP_DIRS': True,
