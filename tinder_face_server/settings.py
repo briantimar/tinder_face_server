@@ -29,7 +29,7 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
-
+#need to list all apps here to have django recognize them
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'recommendation_display.apps.RecommendationDisplayConfig'
 ]
 
 MIDDLEWARE = [
@@ -55,7 +56,15 @@ TEMPLATES = [
     {
         # uses standard django template syntax
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        #where to look for template source files
+        # this will look in a global 'templates' dir for the project, and also
+        # (if APP_DIRS) inside <appname>/templates subdir
+        'DIRS': [
+            os.path.join(BASE_DIR, 'templates'),
+        ],
+        #whether to search within application directories for templates.
+        # if true, looks in standard subdir depending on the template backend
+        # by default, for the django backend this is the 'templates/' subdirectory
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -106,7 +115,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Los_Angeles'
 
 USE_I18N = True
 

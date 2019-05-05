@@ -8,4 +8,4 @@ def test_index(request):
 
 def recommendation_display_view(request):
     """Display a user's recommendations."""
-    
+    return render(request, "recommendation_display/base.html", context=None)
