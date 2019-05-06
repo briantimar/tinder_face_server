@@ -132,4 +132,5 @@ STATIC_URL = '/static/'
 # absolute path to the directory where collectstatic collects static files for deployment.
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-# STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+#other locations for static files
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]

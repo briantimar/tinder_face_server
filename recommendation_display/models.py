@@ -2,7 +2,6 @@ from django.db import models
 
 # Create your models here.
 
-
 class User(models.Model):
     """ represents a single Tinder user """
     #user's first name

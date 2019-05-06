@@ -3,17 +3,17 @@
 {% block content %}
 <p> Your recommendations:</p>
 
-<form class="recRequest">
-</form>
-
-
 <div id="display">
-    <label for="request">click to load recommendation:</label>
-    <button value="get new" id="request">Click me</button>
+    {% load static %}
+    <img id="recdisplay" src="{{ picture }}">
+
+    <form class="rec-form" action="" method="GET">
+        {{ form }}
+        <button class="request" type="submit">Click for new recommendation. </button>
+    </form>
+
 </div>
 
-<!-- the 'src' here is the url relative to the rec_display url.
--->
 {% load static %}
-<script src="{% static "test.js" %}"></script>
+<!-- <script src="{% static "recommendation_display/test.js" %}"></script>  -->
 {% endblock %}
