@@ -12,7 +12,6 @@ headers = {
     "Accept": "application/json"
 }
 
-
 def get_auth_token(fb_auth_token, fb_user_id):
     if "error" in fb_auth_token:
         return {"error": "could not retrieve fb_auth_token"}
@@ -33,13 +32,11 @@ def get_auth_token(fb_auth_token, fb_user_id):
         print(e)
         return {"error": "Something went wrong. Sorry, but we could not authorize you."}
 
-
 def authverif():
     res = get_auth_token(config.fb_access_token, config.fb_user_id)
     if "error" in res:
         return False
     return True
-
 
 def get_recommendations():
     '''
@@ -50,7 +47,6 @@ def get_recommendations():
         return r.json()
     except requests.exceptions.RequestException as e:
         print("Something went wrong with getting recomendations:", e)
-
 
 def get_updates(last_activity_date=""):
     '''
