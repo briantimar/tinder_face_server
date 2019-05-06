@@ -12,3 +12,5 @@ def index_view(request):
 def recommendation_display_view(request):
     """Display a user's recommendations."""
     return render(request, "recommendation_display/rec_display.html", context=None)
+
+    

@@ -1,5 +1,14 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-<p> User recs go here ...</p>
+<p> Your recommendations:</p>
+
+<div id="display">
+    <button value="get new" id="request">Click me</button>
+</div>
+
+<!-- the 'src' here is the url relative to the rec_display url.
+-->
+{% load static %}
+<script src="{% static "test.js" %}"></script>
 {% endblock %}
