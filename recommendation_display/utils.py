@@ -29,10 +29,17 @@ def clear_tinder_labeled_static():
     for image in os.listdir(LABELED_STATIC_DIR):
         os.remove(os.path.join(LABELED_STATIC_DIR, image))
 
-
 def download_tinder_profile_pictures():
     """ Download a set of profile pics for a single tinder user, save them to static dir"""
-    
+    recs = get_recommendations()['results']
+
+    clear_tinder_unlabeled_static()
+    ### TODO this is a terrible hack 
+    person = recs[0]
+    urls = get_all_photo_urls(person, size=172)
+    for i in range(len(urls)):
+        save_image_from_url(urls[i], 
+                            os.path.join(UNLABELED_STATIC_DIR, "img%d"%i))
 
 def get_unlabeled_profile_picture():
     return get_test_picture()

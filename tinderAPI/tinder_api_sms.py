@@ -13,7 +13,6 @@ headers = {
 }
 
 
-
 def get_recommendations():
     '''
     Returns a list of users that you can swipe on

@@ -2,3 +2,5 @@
 *.sqlite3
 *.pyc
 tinderAPI/config.py
+static/tinder_labeled/
+static/tinder_unlabeled/
