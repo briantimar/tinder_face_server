@@ -112,7 +112,7 @@ def locate_common_reps(reps_by_image, keep_all_singles=True):
 
 def kmeans_cluster_indices(reps_by_image, keep_all_singles=True):
     """reps_by_image = a list of lists of reps, one for each image in user's profile. 
-        Return a list of lists, each giving the index of the rep assigned to the user in a particular 
+        Return a list of indices, each giving the index of the rep assigned to the user in a particular 
         image.
         keep_all_singles: if True, assumes all single-face images contain user. 
   """
@@ -121,6 +121,11 @@ def kmeans_cluster_indices(reps_by_image, keep_all_singles=True):
     reps_pooled = []
     for im in reps_by_image:
         reps_pooled += im
+
+    #not enough to do clustering
+    if len(reps_pooled) < 2:
+        return [0] * len(reps_by_image)
+
     reps = np.asarray(reps_pooled)
     n_clusters=2
     kmeans = KMeans(n_clusters=n_clusters).fit(reps)
@@ -128,7 +133,7 @@ def kmeans_cluster_indices(reps_by_image, keep_all_singles=True):
     for i in range(n_clusters):
         pop_by_label.append( np.sum(kmeans.labels_ == i))
     if max(pop_by_label) > len(reps_by_image):
-        raise ValueError("Rep is duplicated in image!")    
+        print("Rep is duplicated in image!")    
     #cluster label assigned to the user
     user_label = pop_by_label.index(max(pop_by_label))
 
@@ -144,7 +149,9 @@ def kmeans_cluster_indices(reps_by_image, keep_all_singles=True):
             labels = kmeans.predict(im)
             user_ims = labels==user_label
             if sum(user_ims) > 1:
-                raise ValueError("Rep is duplicated in image")
+                # raise ValueError("Rep is duplicated in image")
+                # TODO not good
+                user_index = np.arange(len(im), dtype=int)[user_ims][0]
             else:
                 if sum(user_ims) == 0:
                     user_index = None

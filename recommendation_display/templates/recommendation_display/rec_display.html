@@ -7,7 +7,8 @@
     {% load static %}
     <img id="recdisplay" src="{{ picture }}">
 
-    <form class="rec-form" action="" method="GET">
+    <form class="rec-form" action="" method="POST">
+        {% csrf_token %}
         {{ form }}
         <button class="request" type="submit">Click for new recommendation. </button>
     </form>

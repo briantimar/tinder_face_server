@@ -43,17 +43,37 @@ def download_tinder_profile_pictures():
                             os.path.join(UNLABELED_STATIC_DIR, "img%d"%i))
 
 def get_unlabeled_profile_picture():
+    """TODO drop abs path"""
     choices = os.listdir(UNLABELED_STATIC_DIR)
     name = random.choice(choices)
     return "/static/tinder_unlabeled/" + name
 
+def get_labeled_profile_picture():
+    """TODO drop abs path"""
+    choices = os.listdir(LABELED_STATIC_DIR)
+    if len(choices) == 0:
+        generate_labeled_pictures()
+        choices = os.listdir(LABELED_STATIC_DIR)
+    name = random.choice(choices)
+    return "/static/tinder_labeled/" + name
 
 def generate_labeled_pictures():
     """ Populate the tinder labeled static directory .
     TODO this is terrible"""
+    clear_tinder_labeled_static()
+
     unlabeled = os.listdir(UNLABELED_STATIC_DIR)
     if len(unlabeled) == 0:
-        raise ValueError("no unlabeled images found")
-    subprocess.call(["sh", os.path.join(ROOT_DIR, "docker_run.sh"), 
-                        os.path.join(ROOT_DIR, "generate_labeled_pictures.py")])
+        download_tinder_profile_pictures()
+        unlabeled = os.listdir(UNLABELED_STATIC_DIR)
+#     subprocess.call(["sh", os.path.join(ROOT_DIR, "docker_run.sh")])
+    os.system("docker run -v{0}:/tmp -w /tmp bamos/openface python generate_labeled_pictures.py".format(
+                                                                                                ROOT_DIR
+                                                                                                ))
+                       
     
+
+def get_new_labeled_pictures():
+    clear_tinder_unlabeled_static()
+    clear_tinder_labeled_static()
+    generate_labeled_pictures()
