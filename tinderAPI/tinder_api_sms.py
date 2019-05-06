@@ -1,8 +1,8 @@
 # coding=utf-8
 import json
-
-import config
 import requests
+from . import config
+
 
 headers = {
     'app_version': '6.9.4',
