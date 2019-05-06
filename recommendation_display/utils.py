@@ -8,6 +8,7 @@ sys.path.append(ROOT_DIR)
 
 from tinderAPI.utils import get_all_photo_urls, save_image_from_url
 from tinderAPI.tinder_api_sms import get_recommendations
+from faces.utils import generate_labeled_images
 
 UNLABELED_STATIC_DIR = os.path.join(ROOT_DIR , 'static', 'tinder_unlabeled')
 LABELED_STATIC_DIR = os.path.join(ROOT_DIR, 'static', 'tinder_labeled')
@@ -45,3 +46,13 @@ def get_unlabeled_profile_picture():
     choices = os.listdir(UNLABELED_STATIC_DIR)
     name = random.choice(choices)
     return "/static/tinder_unlabeled/" + name
+
+
+def generate_labeled_pictures():
+    """ Populate the tinder labeled static directory ."""
+    unlabeled = os.listdir(UNLABELED_STATIC_DIR)
+    if len(unlabeled) == 0:
+        raise ValueError("no unlabeled images found")
+    ims = generate_labeled_images(LABELED_STATIC_DIR)
+    return ims
+    

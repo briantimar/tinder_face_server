@@ -58,7 +58,7 @@ def annotate_image(image, bounding_boxes):
     for box in bounding_boxes:
         bl = (box.left(), box.bottom())
         tr = (box.right(), box.top())
-        cv2.rectangle(image, bl, tr, color=(153, 255, 204), thickness=5)
+        cv2.rectangle(image, bl, tr, color=(153, 255, 204), thickness=2)
     return image
 
 def get_all_aligned_faces(image, align, imgDim=96):
@@ -109,8 +109,6 @@ def locate_common_reps(reps_by_image, keep_all_singles=True):
         Return a list of lists, each giving the index of the rep assigned to the user in a particular 
         image. """
     return kmeans_cluster_indices(reps_by_image, keep_all_singles=keep_all_singles)
-
-
 
 def kmeans_cluster_indices(reps_by_image, keep_all_singles=True):
     """reps_by_image = a list of lists of reps, one for each image in user's profile. 
