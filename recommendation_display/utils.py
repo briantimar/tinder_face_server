@@ -2,13 +2,13 @@ import glob
 import random
 import os
 import sys
+import subprocess
 
 ROOT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(ROOT_DIR)
 
 from tinderAPI.utils import get_all_photo_urls, save_image_from_url
 from tinderAPI.tinder_api_sms import get_recommendations
-from faces.utils import generate_labeled_images
 
 UNLABELED_STATIC_DIR = os.path.join(ROOT_DIR , 'static', 'tinder_unlabeled')
 LABELED_STATIC_DIR = os.path.join(ROOT_DIR, 'static', 'tinder_labeled')
@@ -49,10 +49,11 @@ def get_unlabeled_profile_picture():
 
 
 def generate_labeled_pictures():
-    """ Populate the tinder labeled static directory ."""
+    """ Populate the tinder labeled static directory .
+    TODO this is terrible"""
     unlabeled = os.listdir(UNLABELED_STATIC_DIR)
     if len(unlabeled) == 0:
         raise ValueError("no unlabeled images found")
-    ims = generate_labeled_images(LABELED_STATIC_DIR)
-    return ims
+    subprocess.call(["sh", os.path.join(ROOT_DIR, "docker_run.sh"), 
+                        os.path.join(ROOT_DIR, "generate_labeled_pictures.py")])
     
