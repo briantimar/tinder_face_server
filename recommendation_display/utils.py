@@ -1,5 +1,5 @@
 import glob
-import numpy as np
+import random
 import os
 import sys
 
@@ -16,7 +16,7 @@ LABELED_STATIC_DIR = os.path.join(ROOT_DIR, 'static', 'tinder_labeled')
 def get_test_picture():
     """ selects a test image at random. """
     choices = glob.glob(ROOT_DIR + "/static/*.jpg")
-    name= choices[ np.random.choice(len(choices))].split('/')[-1]
+    name= random.choice(choices).split('/')[-1]
     return "/static/"+name
 
 def clear_tinder_unlabeled_static():
@@ -42,4 +42,6 @@ def download_tinder_profile_pictures():
                             os.path.join(UNLABELED_STATIC_DIR, "img%d"%i))
 
 def get_unlabeled_profile_picture():
-    return get_test_picture()
+    choices = os.listdir(UNLABELED_STATIC_DIR)
+    name = random.choice(choices)
+    return "/static/tinder_unlabeled/" + name
